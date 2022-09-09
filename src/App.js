@@ -1,21 +1,18 @@
+import {ThemeProvider} from "@material-ui/core";
+import {theme} from "./theme/Theme";
+import {BrowserRouter} from "react-router-dom";
+import AllRoutes from "./auth/AllRoutesConfig";
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <div className="App">
+                <BrowserRouter>
+                    <AllRoutes/>
+                </BrowserRouter>
+            </div>
+        </ThemeProvider>
+    );
 }
 
 export default App;
