@@ -6,7 +6,7 @@ import AllRoutes from "./auth/AllRoutesConfig";
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <div className="App">
+            <div className="App" style={{height: '100%'}}>
                 <BrowserRouter>
                     <AllRoutes/>
                 </BrowserRouter>
