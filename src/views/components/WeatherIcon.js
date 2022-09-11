@@ -10,25 +10,28 @@ import foog from "../../img/foog.png"
 function WeatherIcon({weatherDesc}) {
     return (
         <>
-        { weatherDesc === "clear sky" ?
-            <img src={day} alt={""} style={{width: '50px', height: '50px'}} /> :
-                weatherDesc === "few clouds" ?
-                    <img src={cloud} alt={""} style={{width: '50px', height: '50px'}} /> :
-                        weatherDesc === "scattered clouds" ?
-                            <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                weatherDesc === "broken clouds" ?
+            {weatherDesc!== undefined ?
+                weatherDesc.includes("clear") ?
+                    <img src={day} alt={""} style={{width: '50px', height: '50px'}} /> :
+                        weatherDesc === "few clouds" ?
+                            <img src={cloud} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                weatherDesc === "scattered clouds" ?
                                     <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                        weatherDesc === "shower rain" ?
-                                            <img src={rainy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                weatherDesc === "rain" ?
-                                                    <img src={rainy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                        weatherDesc === "thunderstorm" ?
-                                                            <img src={storm} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                weatherDesc === "snow" ?
-                                                                    <img src={snowy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                        weatherDesc === "mist" ?
-                                                                            <img src={foog} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                                <img src={day} alt={""} style={{width: '50px', height: '50px'}} />
+                                        weatherDesc === "broken clouds" ?
+                                            <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                weatherDesc.includes("clouds") ?
+                                                    <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                        weatherDesc.includes("rain") ?
+                                                            <img src={rainy} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                                weatherDesc.includes("thunderstorm") ?
+                                                                    <img src={storm} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                                        weatherDesc.includes("drizzle") ?
+                                                                            <img src={rainy} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                                                weatherDesc.includes("snow") ?
+                                                                                    <img src={snowy} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                                                        weatherDesc === "mist" ?
+                                                                                            <img src={foog} alt={""} style={{width: '50px', height: '50px'}} /> :
+                                                                                                <img src={day} alt={""} style={{width: '50px', height: '50px'}} /> : null
         }
         </>
     )

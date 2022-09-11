@@ -9,5 +9,14 @@ export const weatherViewStyle = (theme) => {
         fontMain: {
             ...theme.common.fontMain
         },
+        inputField: {
+            ...theme.common.inputField
+        },
+        greyBorderHover: {
+            ...theme.common.greyBorderHover
+        },
+        cardsStyle: {
+            ...theme.common.cardsStyle
+        },
     }
 }
