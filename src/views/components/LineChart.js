@@ -33,7 +33,7 @@ function LineChart ({data}){
                         titleColor: 'rgb(44,67,116)',
                         yAlign: 'bottom',
                         caretPadding: 15,
-                        caretSize: 10,
+                        caretSize: 5,
                         cornerRadius: 7,
                         displayColors: false,
                         borderColor: '#E8E8E8',
