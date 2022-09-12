@@ -11,12 +11,14 @@ function LineChart ({data}){
                     datasets: [{
                         data: data.map((day) => day.temp),
                         pointBackgroundColor: 'rgb(44,67,116)',
-                        backgroundColor: 'rgba(44,67,116, .2)',
+                        backgroundColor: 'rgba(44,67,116, .1)',
                         borderColor: 'rgb(44,67,116)',
                         pointBorderColor: 'transparent',
                         pointBorderWidth: 0,
                         tension: 0.4,
                         fill: "stack",
+                        pointHoverBorderWidth: 30,
+                        pointHoverBackgroundColor: 'rgb(140,178,251)'
                     }]
                 }
             }
@@ -38,7 +40,7 @@ function LineChart ({data}){
                         borderWidth: 1,
                         bodyAlign: 'center',
                         callbacks: {
-                            label: (value) => value.formattedValue + ' °C'
+                            label: (value) => 'Temperature: ' + value.formattedValue + ' °C'
                         }
                     }
                 },

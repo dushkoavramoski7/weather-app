@@ -145,7 +145,7 @@ function WeatherView() {
                         </div>
                     </form>
                 </FormikProvider>
-                <Divider sx={{backgroundColor: 'rgba(44,67,116, .4)'}} style={{marginLeft: '250px', marginRight: '250px', marginTop: '20px'}}/>
+                <Divider sx={{backgroundColor: 'rgba(44,67,116, .4)'}} style={{marginLeft: '200px', marginRight: '200px', marginTop: '20px'}}/>
                 <div className={`row mt-2 p-3 ${classes.fontMain}`}>
                     <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}}>Today overview</div>
                     <div className={'row d-flex justify-content-around mt-3'}>
@@ -228,11 +228,11 @@ function WeatherView() {
                                             </div>
                                             <div className={'row'}>
                                                 <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>PM10</div>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '14px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm10)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
+                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm10)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
                                             </div>
                                             <div className={'row'}>
                                                 <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>PM2.5</div>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '14px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm2_5)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
+                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm2_5)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
                                             </div>
                                         </div>
 
@@ -329,7 +329,7 @@ function WeatherView() {
                     </div>
                 </div>
                 <div className={`row mb-3 text-white ${classes.fontMain}`} style={{marginTop: '0px'}}>
-                    <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Visibility & Wind Direction (degrees)</div>
+                    <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Visibility & Wind Direction (degrees):</div>
                     <div className={'d-flex justify-content-around'}>
                         <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '45%', borderRadius: '10px'}}>
                             <div className={'row'}>
@@ -360,9 +360,9 @@ function WeatherView() {
                     </div>
                 </div>
                 <div className={`row mb-1 text-white ${classes.fontMain}`} style={{marginTop: '0px'}}>
-                    <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Temperature at night</div>
+                    <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Temperature at night:</div>
                     <div className={'d-flex justify-content-around'}>
-                        <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '95%', borderRadius: '10px'}}>
+                        <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '65%', borderRadius: '10px'}}>
                             <div className={'row'}>
                                 <div className={'col-3'} style={{marginTop: '30px', paddingLeft: '30px'}}>
                                     <img src={moon} alt={""} style={{width: '50px', height: '50px'}} />
@@ -370,7 +370,7 @@ function WeatherView() {
                                 <div className={'col-9 mt-2'}>
                                     {averageTempNightWeek && averageTempNightWeek.slice(0,3).map((temp) => {
                                         return (
-                                            <div className={'row'}>
+                                            <div className={'row text-center'}>
                                                 <span style={{color: 'rgba(255, 255, 255, .5)'}}>{temp.dayOfWeek}, <span style={{color: 'white'}}>{temp.temp} °C</span></span>
                                             </div>
                                         )
