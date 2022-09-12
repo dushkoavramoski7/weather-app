@@ -4,7 +4,7 @@ import WeatherView from "../views/WeatherView";
 export const routesConfig = [
     {
         component: WeatherView,
-        path: '/weather',
+        path: '/',
         title: 'Main weather view',
         exact: true
     },
