@@ -17,7 +17,7 @@ export const theme = createTheme  ({
             borderRadius: '10px',
             fontFamily: "\"system-ui\", sans-serif",
             "& label" : {
-                color: 'rgb(155,154,158)',
+                color: 'rgb(64,93,159)',
                 fontFamily: "\"system-ui\", sans-serif",
             },
             "& label.Mui-focused": {
@@ -44,9 +44,9 @@ export const theme = createTheme  ({
             }
         },
         greyBorderHover: {
-            "&:hover": {
-                border: `2px solid #F0F0F0`,
-            },
+            // "&:hover": {
+            //     border: `2px solid #F0F0F0`,
+            // },
         },
         cardsStyle: {
             backgroundColor: '#F8F8F8',

@@ -12,6 +12,10 @@ function SnackbarAlert({snackbarStatus, closeSnackbar, snackbarMessage}) {
                 open={snackbarStatus}
                 onClose={closeSnackbar}
                 transitionDuration={{enter: 500, exit: 500}}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center"
+                }}
             >
                 <Alert severity={snackbarMessage.status} sx={{width: '100%', position: 'relative'}}>
                     <b>{snackbarMessage.message}</b> <br/>
