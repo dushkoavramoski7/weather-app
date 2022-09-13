@@ -39,6 +39,8 @@ export const theme = createTheme  ({
                     border: '2px solid rgb(64,93,159)',
                     borderRadius: '10px',
                 },
+                borderRadius: '10px',
+                borderBottom: '3px solid rgba(44,67,116, .15)',
             }
         },
         greyBorderHover: {
@@ -50,6 +52,7 @@ export const theme = createTheme  ({
             backgroundColor: '#F8F8F8',
             height: '150px',
             borderRadius: '10px',
+            borderBottom: '3px solid rgba(44,67,116, .15)',
         }
 
     }

@@ -134,7 +134,7 @@ function WeatherView() {
                                                    onChange={formik.handleChange}
                                                    fullWidth={true}/>
                                     </div>
-                                    <div className={`col-3 d-flex justify-content-center ${classes.greyBorderHover}`} style={{backgroundColor: 'rgba(44,67,116, .07)', width: '60px', borderRadius: '10px'}}>
+                                    <div className={`col-3 d-flex justify-content-center ${classes.greyBorderHover}`} style={{backgroundColor: 'rgba(44,67,116, .07)', width: '60px', borderRadius: '10px', borderBottom: '3px solid rgba(44,67,116, .15)'}}>
                                         <IconButton size={'medium'} style={{margin: 'auto'}} type={"submit"}>
                                             <SearchRoundedIcon fontSize={'medium'}  sx={{color: 'rgba(155,154,158, .54)'}} />
                                         </IconButton>
@@ -173,17 +173,17 @@ function WeatherView() {
                                 <div className={'col-9 mt-3'} >
                                     <div>
                                         <div><div style={{color: '#A9A9A9'}}>Temperature</div>
-                                            <div className={'row'} style={{marginLeft: '6px'}}>
-                                                <div className={'col-7 ml-1'} style={{color: 'rgb(44,67,116)'}}> Feels like </div>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold'}}>{Math.round(weatherToday?.main?.feels_like - 273.15)} °C</div>
+                                            <div className={'row mt-1'} style={{marginLeft: '6px'}}>
+                                                <div className={'col-7 ml-1'} style={{color: 'rgb(44,67,116)', fontSize: '18px'}}> Feels like </div>
+                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '18px'}}>{Math.round(weatherToday?.main?.feels_like - 273.15)} °C</div>
                                             </div>
                                             <div className={'row'} style={{marginLeft: '6px'}}>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)'}}> Max <ArrowDropUpRoundedIcon fontSize={'medium'} sx={{color:'blue'}}/></div>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold'}}>{Math.round(weatherToday?.main?.temp_max - 273.15)} °C</div>
+                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontSize: '18px'}}> Max <ArrowDropUpRoundedIcon fontSize={'medium'} sx={{color:'blue'}}/></div>
+                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '18px'}}>{Math.round(weatherToday?.main?.temp_max - 273.15)} °C</div>
                                             </div>
                                             <div className={'row'} style={{marginLeft: '6px'}}>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)'}}> Min <ArrowDropDownRoundedIcon fontSize={'medium'} sx={{color:'red'}}/></div>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold'}}>{Math.round(weatherToday?.main?.temp_min - 273.15)} °C</div>
+                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontSize: '18px'}}> Min <ArrowDropDownRoundedIcon fontSize={'medium'} sx={{color:'red'}}/></div>
+                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '18px'}}>{Math.round(weatherToday?.main?.temp_min - 273.15)} °C</div>
                                             </div>
                                         </div>
 
