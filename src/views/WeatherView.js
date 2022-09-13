@@ -400,7 +400,7 @@ function WeatherView() {
                                 <div className={'col-9 mt-2'}>
                                     {averageTempNightWeek && averageTempNightWeek.slice(0,3).map((temp) => {
                                         return (
-                                            <div className={'row text-center'}>
+                                            <div className={'row text-start'} style={{marginLeft: '6px'}}>
                                                 <span style={{color: 'rgba(255, 255, 255, .5)'}}>{temp.dayOfWeek}, <span style={{color: 'white'}}>{temp.temp} °C</span></span>
                                             </div>
                                         )
