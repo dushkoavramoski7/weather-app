@@ -1,5 +1,5 @@
 import {GET_AIR_POLLUTION, GET_CITY, GET_CURRENT_WEATHER, GET_FORECAST_WEATHER} from "../actionTypes";
-
+import {mostFrequent} from "../../utils/utils";
 const initialState = {
     weatherToday: {},
     city: {},
@@ -32,31 +32,57 @@ const reducer = (state = initialState, action) => {
             let sumTempNight = new Map();
 
             action.weatherForecast.list.filter((day) => (
-                day?.dt_txt.split(" ")[1] === '12:00:00' ||
-                    day?.dt_txt.split(" ")[1] === '15:00:00'
+                day?.dt_txt.split(" ")[1] === '09:00:00' ||
+                    day?.dt_txt.split(" ")[1] === '12:00:00' ||
+                        day?.dt_txt.split(" ")[1] === '15:00:00' ||
+                            day?.dt_txt.split(" ")[1] === '18:00:00'
             )).map((weather) => {
+                let weatherDesc = [];
                 if(!days.includes(weather?.dt_txt.split(" ")[0]))
                 {
                     days.push(weather?.dt_txt.split(" ")[0])
                 }
+                //second check
                 if(sumTemp.get(weather?.dt_txt.split(" ")[0]) === undefined)
                 {
-                    sumTemp.set(weather?.dt_txt.split(" ")[0], {day: new Date((weather?.dt * 1000) + (action.weatherForecast?.city?.timezone * 1000)).toLocaleDateString('en-US', {weekday: 'long',}),temp: weather?.main?.temp - 273.15, count: 1})
+                    weatherDesc.push(weather.weather?.[0]?.main)
+                    sumTemp.set(weather?.dt_txt.split(" ")[0], {
+                        day: new Date((weather?.dt * 1000) + (action.weatherForecast?.city?.timezone * 1000)).toLocaleDateString('en-US', {weekday: 'long',}),
+                        temp: weather?.main?.temp - 273.15,
+                        wind: weather?.wind?.speed,
+                        rain: weather?.pop,
+                        weather: weatherDesc,
+                        count: 1
+                    })
                 }
                 else {
                     let oldValue = sumTemp.get(weather?.dt_txt.split(" ")[0]);
-                    let newValue = {day: oldValue.day ,temp: (oldValue.temp + (weather?.main?.temp - 273.15)), count: oldValue.count + 1 }
+                    oldValue.weather.push(weather.weather?.[0]?.main)
+                    let newValue = {
+                        day: oldValue.day,
+                        temp: oldValue.temp < (weather?.main?.temp - 273.15) ? (weather?.main?.temp - 273.15) : oldValue.temp,
+                        wind: oldValue.wind < weather?.wind?.speed ? weather?.wind?.speed : oldValue.wind,
+                        rain: oldValue.rain  < weather?.pop ? weather?.pop : oldValue.rain,
+                        weather: oldValue.weather,
+                        count: oldValue.count + 1
+                    }
                     sumTemp.delete(weather?.dt_txt.split(" ")[0]);
                     sumTemp.set(weather?.dt_txt.split(" ")[0], newValue);
                 }
+                // end second check
             })
-            days.map((day) => {
-                if(sumTemp.get(day).count === 2) {
-                    let avgTempPerDay = Math.round(sumTemp.get(day).temp / sumTemp.get(day).count);
-                    state.averageTempWeek.push({day: day, dayOfWeek: sumTemp.get(day).day, temp: avgTempPerDay})
+            days.slice(days.length === 5 ? 1 : 0).map((day) => {
+                if(sumTemp.get(day).count === 4) {
+                    state.averageTempWeek.push({
+                        day: day,
+                        dayOfWeek: sumTemp.get(day).day,
+                        temp: Math.round(sumTemp.get(day).temp),
+                        wind: Math.round(sumTemp.get(day).wind),
+                        rain: Math.round((sumTemp.get(day).rain * 100)),
+                        weather: mostFrequent(sumTemp.get(day).weather)
+                    })
                 }
             })
-
             action.weatherForecast.list.filter((day) => (
                 day?.dt_txt.split(" ")[1] === '21:00:00' ||
                 day?.dt_txt.split(" ")[1] === '00:00:00' ||
@@ -68,19 +94,36 @@ const reducer = (state = initialState, action) => {
                 }
                 if(sumTempNight.get(weather?.dt_txt.split(" ")[0]) === undefined)
                 {
-                    sumTempNight.set(weather?.dt_txt.split(" ")[0], {day: new Date((weather?.dt * 1000) + (action.weatherForecast?.city?.timezone * 1000)).toLocaleDateString('en-US', {weekday: 'long',}),temp: weather?.main?.temp - 273.15, count: 1})
+                    sumTempNight.set(weather?.dt_txt.split(" ")[0], {
+                        day: new Date((weather?.dt * 1000) + (action.weatherForecast?.city?.timezone * 1000)).toLocaleDateString('en-US', {weekday: 'long',}),
+                        temp: weather?.main?.temp - 273.15,
+                        wind: weather?.wind?.speed,
+                        rain: weather?.pop,
+                        count: 1
+                    })
                 }
                 else {
                     let oldValue = sumTempNight.get(weather?.dt_txt.split(" ")[0]);
-                    let newValue = {day: oldValue.day ,temp: (oldValue.temp + (weather?.main?.temp - 273.15)), count: oldValue.count + 1 }
+                    let newValue = {
+                        day: oldValue.day,
+                        temp: oldValue.temp < (weather?.main?.temp - 273.15) ? (weather?.main?.temp - 273.15) : oldValue.temp,
+                        wind: oldValue.wind < weather?.wind?.speed ? weather?.wind?.speed : oldValue.wind,
+                        rain: oldValue.rain  < weather?.pop ? weather?.pop : oldValue.rain,
+                        count: oldValue.count + 1
+                    }
                     sumTempNight.delete(weather?.dt_txt.split(" ")[0]);
                     sumTempNight.set(weather?.dt_txt.split(" ")[0], newValue);
                 }
             })
             days2.map((day) => {
                 if(sumTempNight.get(day).count === 3) {
-                    let avgTempPerDay = Math.round(sumTempNight.get(day).temp / sumTempNight.get(day).count);
-                    state.averageTempNightWeek.push({day: day, dayOfWeek: sumTempNight.get(day).day, temp: avgTempPerDay})
+                    state.averageTempNightWeek.push({
+                        day: day,
+                        dayOfWeek: sumTempNight.get(day).day,
+                        temp: Math.round(sumTempNight.get(day).temp),
+                        wind: Math.round(sumTempNight.get(day).wind),
+                        rain: Math.round((sumTempNight.get(day).rain * 100)),
+                    })
                 }
             })
             return  {

@@ -18,5 +18,8 @@ export const weatherViewStyle = (theme) => {
         cardsStyle: {
             ...theme.common.cardsStyle
         },
+        hoverMarginBottom: {
+            ...theme.common.hoverMarginBottom
+        },
     }
 }

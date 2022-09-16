@@ -53,6 +53,12 @@ export const theme = createTheme  ({
             height: '150px',
             borderRadius: '10px',
             borderBottom: '3px solid rgba(44,67,116, .15)',
+        },
+        hoverMarginBottom: {
+            "&:hover": {
+                textDecoration: 'underline',
+                cursor: 'pointer'
+            },
         }
 
     }

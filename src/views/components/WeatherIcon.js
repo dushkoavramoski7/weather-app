@@ -11,25 +11,25 @@ function WeatherIcon({weatherDesc}) {
     return (
         <>
             {weatherDesc!== undefined ?
-                weatherDesc.includes("clear") ?
+                weatherDesc.toLowerCase().includes("clear") ?
                     <img src={day} alt={""} style={{width: '50px', height: '50px'}} /> :
-                        weatherDesc === "few clouds" ?
+                        weatherDesc.toLowerCase() === "few clouds" ?
                             <img src={cloud} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                weatherDesc === "scattered clouds" ?
+                                weatherDesc.toLowerCase() === "scattered clouds" ?
                                     <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                        weatherDesc === "broken clouds" ?
+                                        weatherDesc.toLowerCase() === "broken clouds" ?
                                             <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                weatherDesc.includes("clouds") ?
+                                                weatherDesc.toLowerCase().includes("clouds") ?
                                                     <img src={cloudy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                        weatherDesc.includes("rain") ?
+                                                        weatherDesc.toLowerCase().includes("rain") ?
                                                             <img src={rainy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                weatherDesc.includes("thunderstorm") ?
+                                                                weatherDesc.toLowerCase().includes("thunderstorm") ?
                                                                     <img src={storm} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                        weatherDesc.includes("drizzle") ?
+                                                                        weatherDesc.toLowerCase().includes("drizzle") ?
                                                                             <img src={rainy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                                weatherDesc.includes("snow") ?
+                                                                                weatherDesc.toLowerCase().includes("snow") ?
                                                                                     <img src={snowy} alt={""} style={{width: '50px', height: '50px'}} /> :
-                                                                                        weatherDesc === "mist" ?
+                                                                                        weatherDesc.toLowerCase() === "mist" ?
                                                                                             <img src={foog} alt={""} style={{width: '50px', height: '50px'}} /> :
                                                                                                 <img src={day} alt={""} style={{width: '50px', height: '50px'}} /> : null
         }

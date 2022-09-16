@@ -8,22 +8,17 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import {Divider, IconButton, styled} from "@mui/material";
 import sunrise from "../img/sunrise.png"
 import sunset from "../img/sunset.png"
-import wind from "../img/wind.png"
-import warm from "../img/warm.png"
-import humidity from "../img/humidity.png"
-import pollution from "../img/atmospheric-pollution.png"
 import visibility from "../img/low-visibility.png"
 import windDirection from "../img/wind-direction.png"
-import moon from "../img/moon.png"
 import TextField from '@mui/material/TextField';
 import * as yup from "yup";
 import {FormikProvider, useFormik} from "formik";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import SnackbarAlert from "./components/SnackbarAlert";
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import LineChart from "./components/LineChart";
+import WeatherToday from "./components/WeatherToday";
+import WeatherWeek from "./components/WeatherWeek";
 
 
 const validationSchema = yup.object({
@@ -34,17 +29,15 @@ function WeatherView() {
     const classes = useStyles(weatherViewStyle);
     const weatherToday = useSelector(state => state.weather.weatherToday);
     const weatherForecast = useSelector(state => state.weather.weatherForecast);
-    const airPollution = useSelector(state => state.weather.airPollution);
     const averageTempWeek = useSelector(state => state.weather.averageTempWeek);
-    const averageTempNightWeek = useSelector(state => state.weather.averageTempNightWeek);
     const city = useSelector(state => state.weather.city);
     const [snackbarStatus, setSnackbarStatus] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [weatherTodayActive, setWeatherTodayActive] = useState(true);
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
     const monthNamesShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const airPollutionQuality = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
 
     const initialValues = {
         city: ''
@@ -177,103 +170,10 @@ function WeatherView() {
                 </FormikProvider>
                 <Divider sx={{backgroundColor: 'rgba(44,67,116, .4)'}} style={{marginLeft: '200px', marginRight: '200px', marginTop: '20px'}}/>
                 <div className={`row mt-2 p-3 ${classes.fontMain}`}>
-                    <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}}>Today overview</div>
-                    <div className={'row d-flex justify-content-around mt-3'}>
-                        <div className={` m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
-                            <div className={'row'}  style={{height: '150px'}}>
-                                <div className={'col-3 d-flex justify-content-center'}>
-                                    <img src={wind} alt={""} style={{margin: 'auto', width: '60px', height: '60px'}} />
-                                </div>
-                                <div className={'col-9 mt-3'} >
-                                    <div className={'d-flex justify-content-start'}>
-                                        <div><div style={{color: '#A9A9A9'}} className={"mb-2 "}>Wind Speed</div>
-                                            <span style={{color: 'rgb(44,67,116)', fontSize: '27px'}} className={"mt-4"}> <b style={{fontSize: '47px'}}>{weatherToday?.wind?.speed}</b> m/sec</span>
-                                        </div>
 
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className={`m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
-                            <div className={'row'}  style={{height: '150px'}}>
-                                <div className={'col-3 d-flex justify-content-center'}>
-                                    <img src={warm} alt={""} style={{margin: 'auto', width: '60px', height: '60px'}} />
-                                </div>
-                                <div className={'col-9 mt-3'} >
-                                    <div>
-                                        <div><div style={{color: '#A9A9A9'}}>Temperature</div>
-                                            <div className={'row mt-1'} style={{marginLeft: '6px'}}>
-                                                <div className={'col-7 ml-1'} style={{color: 'rgb(44,67,116)', fontSize: '18px'}}> Feels like </div>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '18px'}}>{Math.round(weatherToday?.main?.feels_like - 273.15)} °C</div>
-                                            </div>
-                                            <div className={'row'} style={{marginLeft: '6px'}}>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontSize: '18px'}}> Max <ArrowDropUpRoundedIcon fontSize={'medium'} sx={{color:'blue'}}/></div>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '18px'}}>{Math.round(weatherToday?.main?.temp_max - 273.15)} °C</div>
-                                            </div>
-                                            <div className={'row'} style={{marginLeft: '6px'}}>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontSize: '18px'}}> Min <ArrowDropDownRoundedIcon fontSize={'medium'} sx={{color:'red'}}/></div>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '18px'}}>{Math.round(weatherToday?.main?.temp_min - 273.15)} °C</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div className={'row d-flex justify-content-around mt-1'}>
-                        <div className={`m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
-                            <div className={'row'}  style={{height: '150px'}}>
-                                <div className={'col-3 d-flex justify-content-center'}>
-                                    <img src={humidity} alt={""} style={{margin: 'auto', width: '60px', height: '60px'}} />
-                                </div>
-                                <div className={'col-9 mt-3'} >
-                                    <div>
-                                        <div><div style={{color: '#A9A9A9'}} className={'mb-2'}>Humidity & Pressure</div>
-                                            <span style={{color: 'rgb(44,67,116)', fontSize: '23px'}} className={"mt-4"}> <b style={{fontSize: '35px'}}>{weatherToday?.main?.humidity}</b> %</span>,
-                                            <span style={{color: 'rgb(44,67,116)', fontSize: '23px'}} className={"mt-4"}> <b style={{fontSize: '31px'}}>{weatherToday?.main?.pressure}</b> hPa</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
-                            <div className={'row'}  style={{height: '150px'}}>
-                                <div className={'col-3 d-flex justify-content-center'}>
-                                    <img src={pollution} alt={""} style={{margin: 'auto', width: '60px', height: '60px'}} />
-                                </div>
-                                <div className={'col-9 mt-3'} >
-                                    <div>
-                                        <div><div style={{color: '#A9A9A9'}} className={'mb-1'}>Air Pollution ({airPollution?.list?.[0]?.main?.aqi } - <b>{airPollutionQuality[airPollution?.list?.[0]?.main?.aqi - 1]}</b>)</div>
-                                            <div className={'row'}>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>CO (Carbon monoxide)</div>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold'}}>{Math.round(airPollution?.list?.[0]?.components?.co)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
-                                            </div>
-                                            <div className={'row'}>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>PM10</div>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm10)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
-                                            </div>
-                                            <div className={'row'}>
-                                                <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>PM2.5</div>
-                                                <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm2_5)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
+                    {weatherTodayActive ?
+                        <WeatherToday setActive={() => setWeatherTodayActive(false)}/>:
+                            <WeatherWeek setActive={() => setWeatherTodayActive(true)}/> }
 
                     <div className={`row mt-4 p-3 ${classes.fontMain}`}>
                         <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}} className={'mb-4'}>Average Week Temperature (Day)</div>
@@ -327,7 +227,7 @@ function WeatherView() {
                         })}
                     </div>
                 </div>
-                <div className={`row mb-3 text-white ${classes.fontMain}`} style={{marginTop: '0px'}}>
+                <div className={`row mb-3 mt-5 text-white ${classes.fontMain}`} style={{marginTop: '15px'}}>
                     <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Sunrise & Sunset:</div>
                     <div className={'d-flex justify-content-around'}>
                     <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '45%', borderRadius: '10px'}}>
@@ -358,7 +258,7 @@ function WeatherView() {
                     </div>
                     </div>
                 </div>
-                <div className={`row mb-3 text-white ${classes.fontMain}`} style={{marginTop: '0px'}}>
+                <div className={`row mb-3 mt-5 text-white ${classes.fontMain}`} style={{marginTop: '15px'}}>
                     <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Visibility & Wind Direction (degrees):</div>
                     <div className={'d-flex justify-content-around'}>
                         <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '45%', borderRadius: '10px'}}>
@@ -384,27 +284,6 @@ function WeatherView() {
                                     <div style={{fontSize: '25px'}} className={'text-center'}>
                                         {weatherToday?.wind?.deg}°
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={`row mb-1 text-white ${classes.fontMain}`} style={{marginTop: '0px'}}>
-                    <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Temperature at night:</div>
-                    <div className={'d-flex justify-content-around'}>
-                        <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '65%', borderRadius: '10px'}}>
-                            <div className={'row'}>
-                                <div className={'col-3'} style={{marginTop: '30px', paddingLeft: '30px'}}>
-                                    <img src={moon} alt={""} style={{width: '50px', height: '50px'}} />
-                                </div>
-                                <div className={'col-9 mt-2'}>
-                                    {averageTempNightWeek && averageTempNightWeek.slice(0,3).map((temp) => {
-                                        return (
-                                            <div className={'row text-start'} style={{marginLeft: '6px'}}>
-                                                <span style={{color: 'rgba(255, 255, 255, .5)'}}>{temp.dayOfWeek}, <span style={{color: 'white'}}>{temp.temp} °C</span></span>
-                                            </div>
-                                        )
-                                    })}
                                 </div>
                             </div>
                         </div>
