@@ -79,7 +79,7 @@ const reducer = (state = initialState, action) => {
                 }
                 // end second check
             })
-            days.slice(days.length === 5 ? 1 : 0).map((day) => {
+            days.map((day) => {
                 if(sumTemp.get(day).count === 4) {
                     state.averageTempWeek.push({
                         day: day,
@@ -134,6 +134,7 @@ const reducer = (state = initialState, action) => {
                     })
                 }
             })
+            console.log(state.averageTempWeek)
             return  {
                 ...state,
                 weatherForecast: action.weatherForecast
