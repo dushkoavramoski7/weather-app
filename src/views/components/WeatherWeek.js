@@ -7,12 +7,14 @@ import LinearProgress, {linearProgressClasses} from "@mui/material/LinearProgres
 import TodayRoundedIcon from "@mui/icons-material/TodayRounded";
 import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
 import {weatherAction} from "../../redux/action/weatherAction";
+import {useScrollTo} from "react-use-window-scroll";
 
 function WeatherWeek({setActive}) {
     const classes = useStyles(weatherViewStyle);
     const averageTempWeek = useSelector(state => state.weather.averageTempWeek);
     const averageTempNightWeek = useSelector(state => state.weather.averageTempNightWeek);
     const dispatch = useDispatch();
+    const scrollTo = useScrollTo();
 
 
     const BorderLinearProgress = styled(LinearProgress)(() => ({
@@ -28,6 +30,7 @@ function WeatherWeek({setActive}) {
     }));
 
     const getWeatherDetails = (day) => {
+        scrollTo({ top: window.innerHeight, behavior: "smooth" })
         dispatch(weatherAction.getWeatherDetails(day));
     }
 
@@ -40,9 +43,9 @@ function WeatherWeek({setActive}) {
                 </div>
             </div>
             <div className={'row d-flex justify-content-around mt-3'}>
-                {averageTempNightWeek && averageTempWeek && averageTempNightWeek.map((night, i) => {
+                {averageTempNightWeek && averageTempWeek && averageTempNightWeek.slice(0, averageTempNightWeek.length-1).map((night, i) => {
                     return (
-                        <div className={`m-2 ${classes.cardsStyle} ${classes.fontMain}`} style={{width: '23%', height: '300px'}} key={i}>
+                        <div className={`m-2 ${classes.cardsStyle} ${classes.fontMain}`} style={{width:'30%', height: '300px'}} key={i}>
                             <div className={'row'} style={{backgroundImage: 'linear-gradient(260deg,rgba(44,67,116, .9),rgba(44,67,116, .84))', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
                                 <div className={'col-6 mt-3 d-flex justify-content-center'}>
                                     <WeatherIcon weatherDesc={averageTempWeek[i].weather} />
@@ -99,7 +102,7 @@ function WeatherWeek({setActive}) {
                                     </div>
                                 </div>
                                 <div className={'row mb-2 d-flex justify-content-center'}>
-                                    <div style={{fontSize: '12px',fontWeight:'bold', color: 'rgba(44,67,116, .9)', cursor: "pointer"}} className={`d-flex justify-content-center col-6 ${classes.greyBackgroundHover}`}
+                                    <div style={{fontSize: '12px',fontWeight:'bold', color: 'rgba(44,67,116, .9)', cursor: "pointer"}} className={`d-flex justify-content-center col-5 ${classes.greyBackgroundHover}`}
                                          onClick={() => getWeatherDetails(averageTempWeek[i].day)}>
                                         See more
                                     </div>

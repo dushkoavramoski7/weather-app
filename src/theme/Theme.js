@@ -45,7 +45,7 @@ export const theme = createTheme  ({
         },
         greyBackgroundHover: {
             "&:hover": {
-                borderRadius: '20px',
+                borderRadius: '30px',
                 backgroundColor: '#E8E8E8'
             },
         },
