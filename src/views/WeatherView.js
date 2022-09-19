@@ -239,7 +239,7 @@ function WeatherView() {
                         })}
                     </div>
                 </div>
-                <div className={`row mb-3 mt-5 text-white ${classes.fontMain}`} style={{marginTop: '15px'}}>
+                <div className={`row mb-3 mt-3 text-white ${classes.fontMain}`} style={{marginTop: '15px'}}>
                     <div className={'mb-1'} style={{fontSize: '18px', paddingLeft: '36px'}}>Sunrise & Sunset:</div>
                     <div className={'d-flex justify-content-around'}>
                     <div className={'m-2'} style={{height: '110px', backgroundColor: 'rgb(140,178,251, .09)', width: '45%', borderRadius: '10px'}}>
