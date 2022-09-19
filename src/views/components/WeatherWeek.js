@@ -1,15 +1,19 @@
-import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
 import {useStyles} from "../../factory/StyleFactory";
 import {weatherViewStyle} from "../style/WeatherViewStyle";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import WeatherIcon from "./WeatherIcon";
 import {styled} from "@mui/material";
 import LinearProgress, {linearProgressClasses} from "@mui/material/LinearProgress";
+import TodayRoundedIcon from "@mui/icons-material/TodayRounded";
+import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
+import {weatherAction} from "../../redux/action/weatherAction";
 
 function WeatherWeek({setActive}) {
     const classes = useStyles(weatherViewStyle);
     const averageTempWeek = useSelector(state => state.weather.averageTempWeek);
     const averageTempNightWeek = useSelector(state => state.weather.averageTempNightWeek);
+    const dispatch = useDispatch();
+
 
     const BorderLinearProgress = styled(LinearProgress)(() => ({
         height: 22,
@@ -23,16 +27,22 @@ function WeatherWeek({setActive}) {
         },
     }));
 
+    const getWeatherDetails = (day) => {
+        dispatch(weatherAction.getWeatherDetails(day));
+    }
+
     return (
         <>
             <div className={'row d-flex justify-content-between'}>
-                <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}} className={'col-5'}>Week overview</div>
-                <div style={{fontSize: '20px', color:'#4b6cb7', fontWeight: 'bold', marginRight: '13px', textAlign: 'end'}} className={`col-5`}> <span className={`${classes.hoverMarginBottom}`} onClick={setActive}> Today overview</span> <LaunchRoundedIcon fontSize={'small'}  sx={{color: '#4b6cb7', marginBottom: '4px'}}/></div>
+                <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px', cursor: "pointer"}} className={'col-5'} onClick={setActive}>Today overview <TodayRoundedIcon fontSize={'medium'}  sx={{color: 'rgb(44,67,116)', marginBottom: '4px'}}/></div>
+                <div style={{fontSize: '20px', color:'#4b6cb7', fontWeight: 'bold', marginRight: '13px', textAlign: 'end', cursor: "pointer"}} className={`col-5`}>
+                    <span> Week overview <DateRangeRoundedIcon fontSize={'medium'}  sx={{color: '#4b6cb7', marginBottom: '4px'}}/></span>
+                </div>
             </div>
             <div className={'row d-flex justify-content-around mt-3'}>
                 {averageTempNightWeek && averageTempWeek && averageTempNightWeek.map((night, i) => {
                     return (
-                        <div className={`m-2 ${classes.cardsStyle} ${classes.fontMain}`} style={{width: '23%', height: '280px'}} key={i}>
+                        <div className={`m-2 ${classes.cardsStyle} ${classes.fontMain}`} style={{width: '23%', height: '300px'}} key={i}>
                             <div className={'row'} style={{backgroundImage: 'linear-gradient(260deg,rgba(44,67,116, .9),rgba(44,67,116, .84))', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
                                 <div className={'col-6 mt-3 d-flex justify-content-center'}>
                                     <WeatherIcon weatherDesc={averageTempWeek[i].weather} />
@@ -52,14 +62,14 @@ function WeatherWeek({setActive}) {
                                         </div>
                                     </div>
 
-                                    <div style={{fontSize: '21px', color: 'rgba(255, 255, 255, .6)'}} className={'row mb-3'}>
+                                    <div style={{fontSize: '21px', color: 'rgba(255, 255, 255, .8)'}} className={'row mb-3'}>
                                         <div className={'d-flex justify-content-end text-end'}>
                                             {averageTempWeek[i].weather}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className={'row'}>
+                            <div className={'row d-flex justify-content-center'} >
                                 <div style={{fontSize: '12px'}} className={'mb-1 mt-2 d-flex justify-content-center'}>Chance or rain: <span style={{marginLeft: '6px'}}>  </span><b style={{color: 'rgba(44,67,116, .9)'}}>{averageTempWeek[i].rain}%</b></div>
                                 <div className={'row mb-3'}>
                                         <div className={'col-1'}>
@@ -88,8 +98,15 @@ function WeatherWeek({setActive}) {
                                         <b>{night.temp} °C</b>
                                     </div>
                                 </div>
+                                <div className={'row mb-2 d-flex justify-content-center'}>
+                                    <div style={{fontSize: '12px',fontWeight:'bold', color: 'rgba(44,67,116, .9)', cursor: "pointer"}} className={`d-flex justify-content-center col-6 ${classes.greyBackgroundHover}`}
+                                         onClick={() => getWeatherDetails(averageTempWeek[i].day)}>
+                                        See more
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     )
                 })}
             </div>

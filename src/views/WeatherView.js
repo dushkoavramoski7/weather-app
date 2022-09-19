@@ -30,6 +30,7 @@ function WeatherView() {
     const weatherToday = useSelector(state => state.weather.weatherToday);
     const weatherForecast = useSelector(state => state.weather.weatherForecast);
     const averageTempWeek = useSelector(state => state.weather.averageTempWeek);
+    const weatherDetails = useSelector(state => state.weather.weatherDetails);
     const city = useSelector(state => state.weather.city);
     const [snackbarStatus, setSnackbarStatus] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -78,6 +79,16 @@ function WeatherView() {
     useEffect(() => {
         searchWeatherForCity('Skopje')
     }, []);
+
+    const setViewWeatherToday = (status) => {
+        setWeatherTodayActive(status);
+        if(status) {
+            dispatch(weatherAction.setWeatherWeek());
+        }
+        else {
+            dispatch(weatherAction.getWeatherDetails(averageTempWeek[0].day));
+        }
+    }
 
     const BorderLinearProgress = styled(LinearProgress)(() => ({
         height: 30,
@@ -172,13 +183,14 @@ function WeatherView() {
                 <div className={`row mt-2 p-3 ${classes.fontMain}`}>
 
                     {weatherTodayActive ?
-                        <WeatherToday setActive={() => setWeatherTodayActive(false)}/>:
-                            <WeatherWeek setActive={() => setWeatherTodayActive(true)}/> }
+                        <WeatherToday setActive={() => setViewWeatherToday(false)}/>:
+                            <WeatherWeek setActive={() => setViewWeatherToday(true)}/> }
 
                     <div className={`row mt-4 p-3 ${classes.fontMain}`}>
-                        <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}} className={'mb-4'}>Average Week Temperature (Day)</div>
-                        {averageTempWeek &&
-                            <LineChart data={averageTempWeek}/>}
+                        <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}} className={'mb-4'}>{weatherDetails.length !== 0 ? 'Temperature ' + weatherDetails[0]?.day + ', ' + weatherDetails[0]?.dayName : 'Week Temperature (Day)'}</div>
+                        {(averageTempWeek && weatherDetails) &&
+                                <LineChart data={weatherDetails.length !== 0 ? weatherDetails : averageTempWeek}/>
+                        }
                     </div>
                 </div>
             </div>

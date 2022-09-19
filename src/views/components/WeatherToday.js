@@ -1,4 +1,5 @@
-import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
+import TodayRoundedIcon from '@mui/icons-material/TodayRounded';
+import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
 import wind from "../../img/wind.png";
 import warm from "../../img/warm.png";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
@@ -18,8 +19,10 @@ function WeatherToday({setActive}) {
     return (
         <>
             <div className={'row d-flex justify-content-between'}>
-                <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px'}} className={'col-5'}>Today overview</div>
-                <div style={{fontSize: '20px', color:'#4b6cb7', fontWeight: 'bold', marginRight: '13px', textAlign: 'end'}} className={`col-5`}> <span className={`${classes.hoverMarginBottom}`} onClick={setActive}> Week overview</span> <LaunchRoundedIcon fontSize={'small'}  sx={{color: '#4b6cb7', marginBottom: '4px'}}/></div>
+                <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px', cursor: "pointer"}} className={'col-5'}>Today overview <TodayRoundedIcon fontSize={'medium'}  sx={{color: 'rgb(44,67,116)', marginBottom: '4px'}}/></div>
+                <div style={{fontSize: '20px', color:'#4b6cb7', fontWeight: 'bold', marginRight: '13px', textAlign: 'end', cursor: "pointer"}} className={`col-5`}>
+                    <span onClick={setActive}> Week overview <DateRangeRoundedIcon fontSize={'medium'}  sx={{color: '#4b6cb7', marginBottom: '4px'}}/></span>
+                </div>
             </div>
             <div className={'row d-flex justify-content-around mt-3'}>
                 <div className={` m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
@@ -91,16 +94,16 @@ function WeatherToday({setActive}) {
                         </div>
                         <div className={'col-9 mt-3'} >
                             <div>
-                                <div><div style={{color: '#A9A9A9'}} className={'mb-1'}>Air Pollution ({airPollution?.list?.[0]?.main?.aqi } - <b>{airPollutionQuality[airPollution?.list?.[0]?.main?.aqi - 1]}</b>)</div>
-                                    <div className={'row'}>
-                                        <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>CO (Carbon monoxide)</div>
-                                        <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold'}}>{Math.round(airPollution?.list?.[0]?.components?.co)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
+                                <div><div style={{color: '#A9A9A9'}} className={'mb-2' } >Air Pollution ({airPollution?.list?.[0]?.main?.aqi } - <b>{airPollutionQuality[airPollution?.list?.[0]?.main?.aqi - 1]}</b>)</div>
+                                    <div className={'row'} style={{marginLeft: '6px'}}>
+                                        <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>CO</div>
+                                        <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.co)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
                                     </div>
-                                    <div className={'row'}>
+                                    <div className={'row'} style={{marginLeft: '6px'}}>
                                         <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>PM10</div>
                                         <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm10)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
                                     </div>
-                                    <div className={'row'}>
+                                    <div className={'row'} style={{marginLeft: '6px'}}>
                                         <div className={'col-5'} style={{color: 'rgb(44,67,116)', fontSize: '14px'}}>PM2.5</div>
                                         <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm2_5)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
                                     </div>

@@ -43,10 +43,11 @@ export const theme = createTheme  ({
                 borderBottom: '3px solid rgba(44,67,116, .15)',
             }
         },
-        greyBorderHover: {
-            // "&:hover": {
-            //     border: `2px solid #F0F0F0`,
-            // },
+        greyBackgroundHover: {
+            "&:hover": {
+                borderRadius: '20px',
+                backgroundColor: '#E8E8E8'
+            },
         },
         cardsStyle: {
             backgroundColor: '#F8F8F8',

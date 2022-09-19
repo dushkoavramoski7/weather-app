@@ -1,4 +1,10 @@
-import {GET_AIR_POLLUTION, GET_CITY, GET_CURRENT_WEATHER, GET_FORECAST_WEATHER} from "../actionTypes";
+import {
+    GET_AIR_POLLUTION,
+    GET_CITY,
+    GET_CURRENT_WEATHER,
+    GET_FORECAST_WEATHER,
+    GET_WEATHER_DETAILS, SET_WEATHER_WEEK
+} from "../actionTypes";
 import {mostFrequent} from "../../utils/utils";
 const initialState = {
     weatherToday: {},
@@ -7,6 +13,7 @@ const initialState = {
     airPollution: {},
     averageTempWeek: [],
     averageTempNightWeek: [],
+    weatherDetails: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +23,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 weatherToday: action.weatherToday,
                 averageTempWeek: [],
-                averageTempNightWeek: []
+                averageTempNightWeek: [],
+                weatherDetails: []
             }
         }
         case GET_CITY: {
@@ -135,6 +143,30 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 airPollution: action.airPollution
+            }
+        }
+        case GET_WEATHER_DETAILS: {
+            const weather = []
+            state.weatherForecast?.list.map((day) => {
+                    if(day?.dt_txt.split(" ")[0] === action.day)
+                    {
+                        weather.push({
+                            dayOfWeek: day?.dt_txt.split(" ")[1].split(":")[0] + ":" + day?.dt_txt.split(" ")[1].split(":")[1],
+                            day: day?.dt_txt.split(" ")[0],
+                            dayName: new Date((day?.dt * 1000)).toLocaleDateString('en-US', {weekday: 'long',}),
+                            temp: Math.round(day?.main?.temp - 273.15)
+                        })
+                    }
+            })
+            return {
+                ...state,
+                weatherDetails: weather
+            }
+        }
+        case SET_WEATHER_WEEK: {
+            return {
+                ...state,
+                weatherDetails: []
             }
         }
         default:

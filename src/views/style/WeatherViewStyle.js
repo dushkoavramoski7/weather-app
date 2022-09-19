@@ -21,5 +21,8 @@ export const weatherViewStyle = (theme) => {
         hoverMarginBottom: {
             ...theme.common.hoverMarginBottom
         },
+        greyBackgroundHover: {
+            ...theme.common.greyBackgroundHover
+        }
     }
 }

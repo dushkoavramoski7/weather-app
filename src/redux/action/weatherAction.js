@@ -1,6 +1,12 @@
 import axios from "../../axios/axiosInstance"
 import {API_KEY} from "../../auth/api/ApiKey";
-import {GET_AIR_POLLUTION, GET_CITY, GET_CURRENT_WEATHER, GET_FORECAST_WEATHER} from "../actionTypes";
+import {
+    GET_AIR_POLLUTION,
+    GET_CITY,
+    GET_CURRENT_WEATHER,
+    GET_FORECAST_WEATHER,
+    GET_WEATHER_DETAILS, SET_WEATHER_WEEK
+} from "../actionTypes";
 
 export const weatherAction = {
 
@@ -67,4 +73,15 @@ export const weatherAction = {
             })
         })
     },
+    getWeatherDetails: (day) => {
+        return {
+            type: GET_WEATHER_DETAILS,
+            day: day
+        }
+    },
+    setWeatherWeek: () => {
+        return {
+            type: SET_WEATHER_WEEK
+        }
+    }
 }
