@@ -6,7 +6,6 @@ import storm from "../../img/storm.png"
 import snowy from "../../img/snowy.png"
 import foog from "../../img/foog.png"
 
-
 function WeatherIcon({weatherDesc}) {
     return (
         <>

@@ -4,12 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import WeatherIcon from "./WeatherIcon";
 import {styled} from "@mui/material";
 import LinearProgress, {linearProgressClasses} from "@mui/material/LinearProgress";
-import TodayRoundedIcon from "@mui/icons-material/TodayRounded";
-import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
 import {weatherAction} from "../../redux/action/weatherAction";
 import {useScrollTo} from "react-use-window-scroll";
 
-function WeatherWeek({setActive}) {
+function WeatherWeek() {
     const classes = useStyles(weatherViewStyle);
     const averageTempWeek = useSelector(state => state.weather.averageTempWeek);
     const averageTempNightWeek = useSelector(state => state.weather.averageTempNightWeek);
@@ -36,14 +34,8 @@ function WeatherWeek({setActive}) {
 
     return (
         <>
-            <div className={'row d-flex justify-content-between'}>
-                <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px', cursor: "pointer"}} className={'col-5'} onClick={setActive}>Today overview <TodayRoundedIcon fontSize={'medium'}  sx={{color: 'rgb(44,67,116)', marginBottom: '4px'}}/></div>
-                <div style={{fontSize: '20px', color:'#4b6cb7', fontWeight: 'bold', marginRight: '13px', textAlign: 'end', cursor: "pointer"}} className={`col-5`}>
-                    <span> Week overview <DateRangeRoundedIcon fontSize={'medium'}  sx={{color: '#4b6cb7', marginBottom: '4px'}}/></span>
-                </div>
-            </div>
             <div className={'row d-flex justify-content-around mt-3'}>
-                {averageTempNightWeek && averageTempWeek && averageTempNightWeek.slice(0, averageTempNightWeek.length-1).map((night, i) => {
+                {averageTempNightWeek && averageTempWeek && averageTempNightWeek.slice(0, 3).map((night, i) => {
                     return (
                         <div className={`m-2 ${classes.cardsStyle} ${classes.fontMain}`} style={{width:'30%', height: '300px'}} key={i}>
                             <div className={'row'} style={{backgroundImage: 'linear-gradient(260deg,rgba(44,67,116, .9),rgba(44,67,116, .84))', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
@@ -109,11 +101,9 @@ function WeatherWeek({setActive}) {
                                 </div>
                             </div>
                         </div>
-
                     )
                 })}
             </div>
-
         </>
     )
 }

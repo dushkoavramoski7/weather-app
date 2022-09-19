@@ -1,5 +1,3 @@
-import TodayRoundedIcon from '@mui/icons-material/TodayRounded';
-import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
 import wind from "../../img/wind.png";
 import warm from "../../img/warm.png";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
@@ -10,7 +8,7 @@ import {useSelector} from "react-redux";
 import {useStyles} from "../../factory/StyleFactory";
 import {weatherViewStyle} from "../style/WeatherViewStyle";
 
-function WeatherToday({setActive}) {
+function WeatherToday() {
     const weatherToday = useSelector(state => state.weather.weatherToday);
     const airPollution = useSelector(state => state.weather.airPollution);
     const airPollutionQuality = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
@@ -18,26 +16,19 @@ function WeatherToday({setActive}) {
 
     return (
         <>
-            <div className={'row d-flex justify-content-between'}>
-                <div style={{fontSize: '20px', color:'rgb(44,67,116)', fontWeight: 'bold', marginLeft: '13px', cursor: "pointer"}} className={'col-5'}>Today overview <TodayRoundedIcon fontSize={'medium'}  sx={{color: 'rgb(44,67,116)', marginBottom: '4px'}}/></div>
-                <div style={{fontSize: '20px', color:'#4b6cb7', fontWeight: 'bold', marginRight: '13px', textAlign: 'end', cursor: "pointer"}} className={`col-5`}>
-                    <span onClick={setActive}> Week overview <DateRangeRoundedIcon fontSize={'medium'}  sx={{color: '#4b6cb7', marginBottom: '4px'}}/></span>
-                </div>
-            </div>
             <div className={'row d-flex justify-content-around mt-3'}>
-                <div className={` m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
+                <div className={`m-2 ${classes.cardsStyle}`} style={{width: '45%'}}>
                     <div className={'row'}  style={{height: '150px'}}>
                         <div className={'col-3 d-flex justify-content-center'}>
-                            <img src={wind} alt={""} style={{margin: 'auto', width: '60px', height: '60px'}} />
+                            <img src={wind} alt={""} style={{margin: 'auto', width: '60px', height: '60px'}}/>
                         </div>
                         <div className={'col-9 mt-3'} >
                             <div className={'d-flex justify-content-start'}>
-                                <div><div style={{color: '#A9A9A9'}} className={"mb-2 "}>Wind Speed</div>
+                                <div>
+                                    <div style={{color: '#A9A9A9'}} className={"mb-2 "}>Wind Speed</div>
                                     <span style={{color: 'rgb(44,67,116)', fontSize: '27px'}} className={"mt-4"}> <b style={{fontSize: '47px'}}>{weatherToday?.wind?.speed}</b> km/h</span>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -81,7 +72,6 @@ function WeatherToday({setActive}) {
                                     <span style={{color: 'rgb(44,67,116)', fontSize: '23px'}} className={"mt-4"}> <b style={{fontSize: '35px'}}>{weatherToday?.main?.humidity}</b> %</span>,
                                     <span style={{color: 'rgb(44,67,116)', fontSize: '23px'}} className={"mt-4"}> <b style={{fontSize: '31px'}}>{weatherToday?.main?.pressure}</b> hPa</span>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -108,9 +98,7 @@ function WeatherToday({setActive}) {
                                         <div className={'col-7'} style={{color: 'rgb(44,67,116)', fontWeight: 'bold', fontSize: '16px'}}>{Math.round(airPollution?.list?.[0]?.components?.pm2_5)} <span style={{ fontSize: '10px'}}>μg/m3</span></div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>

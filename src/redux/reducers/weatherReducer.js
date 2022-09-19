@@ -134,7 +134,6 @@ const reducer = (state = initialState, action) => {
                     })
                 }
             })
-            console.log(state.averageTempWeek)
             return  {
                 ...state,
                 weatherForecast: action.weatherForecast

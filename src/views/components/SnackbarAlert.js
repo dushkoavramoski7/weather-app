@@ -3,7 +3,6 @@ import {Alert, Stack} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import {IconButton} from "@material-ui/core";
 
-
 function SnackbarAlert({snackbarStatus, closeSnackbar, snackbarMessage}) {
     return (
         <Stack>

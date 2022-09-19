@@ -1,17 +1,3 @@
-export const replaceObjInArray = function (newObject, oldObject, array) {
-    let index = array.findIndex(x => x === oldObject);
-    let firstPart = array.slice(0, index);
-    let secondPart = array.slice(index + 1);
-    return [...firstPart, newObject, ...secondPart];
-};
-
-export const addElementToArrayIfNotExist = function (object, array) {
-    if(array.filter(element => element === object).length === 0) {
-        array.push(object)
-    }
-    return array
-}
-
 export const mostFrequent = function (array)
 {
     if(array.length === 0)
@@ -32,4 +18,20 @@ export const mostFrequent = function (array)
         }
     }
     return maxEl;
+}
+
+export const formatAMPMHours = function (date) {
+    let hours = date.getUTCHours();
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+    return hours + ' '+ ampm;
+}
+
+export const formatAMPMHoursAndMinutes = function (date) {
+    let hours = date.getUTCHours();
+    let minutes = date.getUTCMinutes();
+    let ampm = hours >= 12 ? 'AM' : 'PM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    return hours + ':' + minutes + ' ' + ampm;
 }
